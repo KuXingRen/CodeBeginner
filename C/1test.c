@@ -1,26 +1,32 @@
 #include <stdio.h>
-#include <string.h>
 
-void findMaxAndSecondMax(char *str[], int n, char **max, char **secondMax) {
-    *max = *secondMax = str[0];
-    for (int i = 1; i < n; i++) {
-        if (strcmp(str[i], *max) > 0) {
-            *secondMax = *max;
-            *max = str[i];
-        }
-        else if (strcmp(str[i], *secondMax) > 0 && strcmp(str[i], *max) != 0) {
-            *secondMax = str[i];
-        }
+void printPath(int path[], int len) {
+    for (int i = 0; i < len; i++) {
+        printf("%d ", path[i]);
+    }
+    printf("\n");
+}
+
+void findPaths(int m, int n, int path[], int len) {
+    if (m == 0 && n == 0) {
+        printPath(path, len);
+        return;
+    }
+
+    if (m > 0) {
+        path[len] = 1; // 1代表向上走
+        findPaths(m - 1, n, path, len + 1);
+    }
+
+    if (n > 0) {
+        path[len] = 2; // 2代表向右走
+        findPaths(m, n - 1, path, len + 1);
     }
 }
 
 int main() {
-    char *str[] = { "apple", "banana", "cherry", "date", "elderberry" };
-    int n = sizeof(str) / sizeof(str[0]);
-    char *max;
-    char *secondMax;
-    findMaxAndSecondMax(str, n, &max, &secondMax);
-    printf("最大值: %s\n", max);
-    printf("次大值: %s\n", secondMax);
+    int m = 3, n = 3;
+    int path[m + n - 1];
+    findPaths(m - 1, n - 1, path, 0);
     return 0;
 }
