@@ -40,3 +40,5 @@ void printSeqTable(pSeqTable table);
 int countSort(TableElem *table, TableElem range, TableElem len);
 // 一个通用函数，可以将数组内容反转，需要连续存储
 void reverseContent(void *begin, void *end, size_t size);
+// 清空输入缓冲区
+int clearSTDIN();

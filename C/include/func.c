@@ -1,5 +1,11 @@
 #include "func.h"
 
+int clearSTDIN() {
+    char c;
+    while ((c = getchar()) != '\n' && c != EOF);
+    return 1;
+}
+
 int getRandSeqTable(pSeqTable *Seq, int range, int length) {
     // 检查range
     if (range < 0) {
