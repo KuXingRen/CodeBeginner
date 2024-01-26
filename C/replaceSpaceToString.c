@@ -6,8 +6,8 @@
 void replaceSpace(char **s, char *a, char *b) {
     char *tmp = (char *)calloc(N, sizeof(char));
     char *cur = tmp, *curS = *s;
-    while (*curS != '\n') {// s从stdin读取
-        if (' ' != *curS) {
+    while (*curS != '\n') {// *s从stdin读取
+        if (*a != *curS) {
             *cur++ = *curS++;
         }
         else {
@@ -26,7 +26,7 @@ int main() {
     char *s = (char *)calloc(N, sizeof(char));
     printf("请输入一串字符\n");
     while (fgets(s, N, stdin) != NULL) {
-        replaceSpace(&s, ' ', "%020\0");
+        replaceSpace(&s, " ", "%020\0");
         printf("%s\n", s);
         printf("\n请输入一串字符\n");
     }
