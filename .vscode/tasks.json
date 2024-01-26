@@ -10,7 +10,7 @@
                 "${file}",
                 "${fileDirname}/include/*.c",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
+                "${fileDirname}/${fileBasenameNoExtension}.exe",
                 "-I",
                 "${fileDirname}/include"
                 
