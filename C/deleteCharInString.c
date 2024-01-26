@@ -28,4 +28,5 @@ int main() {
         printf("删除%c后的字符串为%s\n", content, s);
         printf("\n请输入一串字符\n");
     }
+    free(s);
 }
