@@ -13,7 +13,6 @@
                 "${fileDirname}/${fileBasenameNoExtension}.exe",
                 "-I",
                 "${fileDirname}/include"
-                
             ],
             "options": {
                 "cwd": "${fileDirname}"
