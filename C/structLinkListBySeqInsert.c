@@ -6,12 +6,14 @@ int main() {
     srand(time(NULL));
     printf("请输入链表长度\n");
     int ret = 0, len = 0;
+    pNode tmp = NULL;
+    pNode L = NULL, p = NULL, * cur = NULL, pre = NULL;
     while ((ret = scanf("%d", &len)) != EOF) {
         if (ret != 1 && len < 0) {
             printf("输入的不是合法整数");
             clearSTDIN();
         }
-        pNode L = NULL, p = NULL, * cur = NULL, pre = NULL;
+
         for (int i = 0;i < len;i++) {
             // 尾插法
             p = (pNode)calloc(1, sizeof(LNode));
@@ -26,7 +28,10 @@ int main() {
         }
         for (int i = 0;i < len;i++) {
             printf("%d ", L->data);
+            tmp = L;
             L = L->next;
+            free(tmp);
+            tmp = NULL;
         }
         printf("\n");
     }
