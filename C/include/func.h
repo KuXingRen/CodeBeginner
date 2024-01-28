@@ -50,3 +50,5 @@ void showListNode(pNode L);
 int removeNodeByIndex(pNode* L, int index);
 // 释放链表的空间
 void freeLinkList(pNode head);
+// 建立指定长度的有序链表，使用有序插入实现
+void structLinkListBySeqInsert(pNode* head, int len);

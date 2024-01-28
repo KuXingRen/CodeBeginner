@@ -1,5 +1,21 @@
 #include "func.h"
 
+void structLinkListBySeqInsert(pNode* head, int len) {
+    pNode* cur = head, p = NULL;
+    for (int i = 0;i < len;i++) {
+        // 尾插法
+        p = (pNode)calloc(1, sizeof(LNode));
+        p->data = rand() % 100;
+        p->next = NULL;
+        cur = head;
+        while (*cur != NULL && (*cur)->data < p->data) {
+            cur = &(*cur)->next;
+        }
+        p->next = *cur;
+        *cur = p;
+    }
+}
+
 void freeLinkList(pNode head) {
     pNode tmp = NULL;
     while (head) {
