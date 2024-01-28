@@ -7,7 +7,7 @@ int main() {
     printf("请输入链表长度\n");
     int ret = 0, len = 0;
     pNode tmp = NULL;
-    pNode L = NULL, p = NULL, * cur = NULL, pre = NULL;
+    pNode L = NULL, p = NULL, *cur = NULL, pre = NULL;
     while ((ret = scanf("%d", &len)) != EOF) {
         if (ret != 1 && len < 0) {
             printf("输入的不是合法整数");

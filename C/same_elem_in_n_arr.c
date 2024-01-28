@@ -51,7 +51,7 @@ int main() {
     // 剩下的N-2个数组都轮流与辅助数组1(*b1)对比
     // 需要使用指针让两个辅助数组扮演的角色在每次循环结束后互换
     printf("二次循环\n");
-    pSeqTable* b1, * b2;
+    pSeqTable *b1, *b2;
     b1 = &supTab[0], b2 = &supTab[1];
     for (int num = 2;num < N;num++) {
         i = 0, j = 0, k = 0;
@@ -85,7 +85,7 @@ int main() {
         }
         putchar('\n');
         // 对比结束，交换b1,b2
-        pSeqTable* tmp;
+        pSeqTable *tmp;
         tmp = b1;
         b1 = b2;
         b2 = tmp;

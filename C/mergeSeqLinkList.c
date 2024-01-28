@@ -78,6 +78,5 @@ int main() {
         freeLinkList(&L1);
         freeLinkList(&L2);
         freeLinkList(&mergeL);
-
     }
 }
