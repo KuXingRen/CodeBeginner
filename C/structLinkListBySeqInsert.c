@@ -12,6 +12,7 @@ int main() {
         if (ret != 1 && len < 0) {
             printf("输入的不是合法整数");
             clearSTDIN();
+            continue;
         }
 
         for (int i = 0;i < len;i++) {
