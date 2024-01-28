@@ -48,3 +48,5 @@ void strucLinkList(pNode* head, TableElem len);
 void showListNode(pNode L);
 // 指定链表的第几个节并删除
 int removeNodeByIndex(pNode* L, int index);
+// 释放链表的空间
+void freeLinkList(pNode head);

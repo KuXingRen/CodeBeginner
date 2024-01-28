@@ -1,5 +1,14 @@
 #include "func.h"
 
+void freeLinkList(pNode head) {
+    pNode tmp = NULL;
+    while (head) {
+        tmp = head;
+        head = head->next;
+        free(tmp);
+    }
+}
+
 int removeNodeByIndex(pNode* L, int  index) {
     pNode* p = L;
     while (*p != NULL && index > 0) {
@@ -14,7 +23,7 @@ int removeNodeByIndex(pNode* L, int  index) {
     else {
         return 0; // 超出长度
     }
-
+    return 1;
 }
 
 void showListNode(pNode L) {
