@@ -6,5 +6,6 @@ int main() {
     showListNode(L);
     L = findNodeFromEnd(L, 4);
     printf("%d\n", L->data);
+
     return 0;
 }
