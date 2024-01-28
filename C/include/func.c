@@ -1,5 +1,13 @@
 #include "func.h"
 
+void showListNode(pNode L) {
+    while (L) {
+        printf("%d ", L->data);
+        L = L->next;
+    }
+    putchar('\n');
+}
+
 void strucLinkList(pNode* head, TableElem len) {
     TableElem i = 0;
     pNode p = NULL;

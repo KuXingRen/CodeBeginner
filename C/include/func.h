@@ -44,3 +44,5 @@ void reverseContent(void* begin, void* end, size_t size);
 int clearSTDIN();
 // 构建指定长度的随机链表
 void strucLinkList(pNode* head, TableElem len);
+// 打印链表的每个节点
+void showListNode(pNode L);
