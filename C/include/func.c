@@ -1,5 +1,23 @@
 #include "func.h"
 
+pNode findNodeFromEnd(pNode head, int index) {
+    pNode pre = head, cur = head;
+    for (int i = 0;i < index - 1;i++) {
+        if (cur->next != NULL) {
+            cur = cur->next;
+        }
+        else {
+            printf("链表长度不足%d\n", index);
+            return NULL;
+        }
+    }
+    while (cur->next) {
+        cur = cur->next;
+        pre = pre->next;
+    }
+    return pre;
+}
+
 void reverseLinkList(pNode *head) {
     pNode pre = NULL;
     pNode cur = *head;

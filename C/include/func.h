@@ -54,4 +54,5 @@ void freeLinkList(pNode *head);
 void structLinkListBySeqInsert(pNode *head, int len);
 // 翻转链表
 void reverseLinkList(pNode *head);
-//
+// 找到倒数第n个结点
+pNode findNodeFromEnd(pNode head, int index);
