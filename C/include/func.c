@@ -1,12 +1,23 @@
 #include "func.h"
 
+void strucLinkList(pNode* head, TableElem len) {
+    TableElem i = 0;
+    pNode p = NULL;
+    for (i = 0;i < len;i++) {
+        p = (pNode)calloc(1, sizeof(LNode));
+        p->data = rand() % 100;
+        p->next = *head;
+        *head = p;
+    }
+}
+
 int clearSTDIN() {
     char c;
     while ((c = getchar()) != '\n' && c != EOF);
     return 1;
 }
 
-int getRandSeqTable(pSeqTable *Seq, int range, int length) {
+int getRandSeqTable(pSeqTable* Seq, int range, int length) {
     // 检查range
     if (range < 0) {
         printf("范围不合法\b");
@@ -20,7 +31,7 @@ int getRandSeqTable(pSeqTable *Seq, int range, int length) {
     // 初始化SeqTable
     *Seq = (pSeqTable)calloc(1, sizeof(SeqTable));
     (*Seq)->length = length;
-    (*Seq)->table = (int *)malloc(sizeof(TableElem) * length);
+    (*Seq)->table = (int*)malloc(sizeof(TableElem) * length);
     int i;
     for (i = 0; i < length; i++) {
         (*Seq)->table[i] = rand() % range;
@@ -29,7 +40,7 @@ int getRandSeqTable(pSeqTable *Seq, int range, int length) {
     return i;
 }
 
-int partition(TableElem *a, TableElem left, TableElem right) {
+int partition(TableElem* a, TableElem left, TableElem right) {
     int i, k; // 把right作为分隔值
     for (i = k = left; i < right; i++) {
         if (a[i] < a[right]) {
@@ -42,7 +53,7 @@ int partition(TableElem *a, TableElem left, TableElem right) {
         return k;
 }
 
-void quickSort(TableElem *a, TableElem left, TableElem right) {
+void quickSort(TableElem* a, TableElem left, TableElem right) {
     int pivot;          // 分隔值的下标
     if (left < right) { // 递归结束条件
         pivot = partition(a, left, right);
@@ -58,13 +69,13 @@ void printSeqTable(pSeqTable table) {
     putchar('\n');
 }
 
-int countSort(TableElem *table, TableElem range, TableElem length) {
+int countSort(TableElem* table, TableElem range, TableElem length) {
     if (range > 1000000) {
         printf("范围过大，不适合使用计数排序，考虑其他排序算法\n");
         return -1;
     }
     if (table) {
-        TableElem *arr = (TableElem *)calloc(range, sizeof(TableElem));
+        TableElem* arr = (TableElem*)calloc(range, sizeof(TableElem));
         int i;
         for (i = 0; i < length; i++) {
             arr[table[i]]++;
@@ -84,12 +95,12 @@ int countSort(TableElem *table, TableElem range, TableElem length) {
     return -1;
 }
 
-void reverseContent(void *begin, void *end, size_t size) {
+void reverseContent(void* begin, void* end, size_t size) {
     // 因为不知道具体类型，所以需要类型size信息，然后使mem系列函数实现
-    begin = (char *)begin;
-    end = (char *)end;
+    begin = (char*)begin;
+    end = (char*)end;
 
-    char *tmp = (char *)malloc(size);
+    char* tmp = (char*)malloc(size);
     if (tmp == NULL) {
         return;
     }
