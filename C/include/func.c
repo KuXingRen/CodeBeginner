@@ -16,11 +16,14 @@ void structLinkListBySeqInsert(pNode *head, int len) {
     }
 }
 
-void freeLinkList(pNode head) {
+void freeLinkList(pNode *head) {
     pNode tmp = NULL;
-    while (head) {
-        tmp = head;
-        head = head->next;
+    while (*head) {
+        tmp = *head;
+        (*head) = (*head)->next;
+        // 如果在一个循环中结束前调用此函数，在下一个循环开始时原地重建链表
+        // 那么将该节点的指针域一起初始化也是必要的
+        tmp->next = NULL;
         free(tmp);
         tmp = NULL;// 避免野指针
     }
