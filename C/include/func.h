@@ -52,3 +52,6 @@ int removeNodeByIndex(pNode *L, int index);
 void freeLinkList(pNode *head);
 // 建立指定长度的有序链表，使用有序插入实现
 void structLinkListBySeqInsert(pNode *head, int len);
+// 翻转链表
+void reverseLinkList(pNode *head);
+//

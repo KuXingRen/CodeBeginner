@@ -1,5 +1,18 @@
 #include "func.h"
 
+void reverseLinkList(pNode *head) {
+    pNode pre = NULL;
+    pNode cur = *head;
+    pNode next = NULL;
+    while (cur != NULL) {
+        next = cur->next;
+        cur->next = pre;
+        pre = cur;
+        cur = next;
+    }
+    *head = pre;
+}
+
 void structLinkListBySeqInsert(pNode *head, int len) {
     pNode *cur = head, p = NULL;
     for (int i = 0;i < len;i++) {
