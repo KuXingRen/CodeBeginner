@@ -3,20 +3,22 @@
 
 int main() {
     srand(time(NULL));
-    int len = rand() % 15, length = 0;
-    pNode head = NULL, cur = NULL;
-    len = 2;
-    strucLinkList(&head, len);
-    showListNode(head);
-    length = getLinkListLength(head, &length);
-    printf("中间结点的序号为%d\n", length / 2);
-    length = length / 2;
-    cur = head;
-    if (length != 0) {
-        while (length - 1) {
+    int range = rand() % 15, len = 0;
+    pNode head = NULL, cur = NULL, pre = NULL;
+    range = 4;
+    strucLinkList(&head, range);
+    if (head) {
+        showListNode(head);
+        len = getLinkListLength(head, &len);
+        len = len / 2;
+        cur = head;
+        for (int i = 0;i < len;i++) {
             cur = cur->next;
-            length--;
         }
+        printf("%d\n", cur->data);
     }
-    printf("元素为%d\n", cur->data);
+    else {
+        printf("链表为空\n");
+    }
+    return 0;
 }
