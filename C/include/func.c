@@ -1,5 +1,22 @@
 #include "func.h"
 
+int removeNodeByIndex(pNode* L, int  index) {
+    pNode* p = L;
+    while (*p != NULL && index > 0) {
+        p = &(*p)->next;
+        index--;
+    }
+    if (*p != NULL) {
+        pNode tmp = *p;
+        *p = (*p)->next;
+        free(tmp);
+    }
+    else {
+        return 0; // 超出长度
+    }
+
+}
+
 void showListNode(pNode L) {
     while (L) {
         printf("%d ", L->data);

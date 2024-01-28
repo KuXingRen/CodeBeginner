@@ -46,3 +46,5 @@ int clearSTDIN();
 void strucLinkList(pNode* head, TableElem len);
 // 打印链表的每个节点
 void showListNode(pNode L);
+// 指定链表的第几个节并删除
+int removeNodeByIndex(pNode* L, int index);
