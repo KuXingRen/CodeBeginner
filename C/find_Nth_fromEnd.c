@@ -9,7 +9,7 @@ int main() {
     strucLinkList(&head, len);
     showListNode(head);
     pNode pre = head, cur = head;
-    for (int i = 0;i < 4 - 1;i++) {
+    for (int i = 0;i < len - 1;i++) {
         if (cur->next != NULL) {
             cur = cur->next;
         }
