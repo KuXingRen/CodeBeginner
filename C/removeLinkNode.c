@@ -18,13 +18,23 @@ int main() {
         int index = 0;
         ret = scanf("%d", &index);
         if (ret != 1 || index < 0) {
-            printf("输入的不是一个合法的整数\n");
+            if (L == NULL) {
+                printf("删除失败,链表为空\n");
+            }
+            else {
+                printf("输入的不是一个合法的整数\n");
+            }
             printf("\n请输入链表的长度\n");
             clearSTDIN();
             continue;
         }
-        removeNodeByIndex(index);
+        ret = removeNodeByIndex(&L, index - 1);
+        if (!ret && L != NULL) {
+            printf("超出链表范围，删除失败\n");
+            continue;
+        }
         showListNode(L);
+        freeLinkList(L);
         printf("请输入链表的长度\n");
     }
 }
