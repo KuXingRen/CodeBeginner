@@ -56,3 +56,5 @@ void structLinkListBySeqInsert(pNode *head, int len);
 void reverseLinkList(pNode *head);
 // 找到倒数第n个结点
 pNode findNodeFromEnd(pNode head, int index);
+// 获取一个链表的长度，单链表，不考虑环等问题
+int getLinkListLength(pNode head, int *length);

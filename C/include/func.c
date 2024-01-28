@@ -1,5 +1,14 @@
 #include "func.h"
 
+int getLinkListLength(pNode head, int *length) {
+    *length = 0;
+    while (head) {
+        (*length)++;
+        head = head->next;
+    }
+    return *length;
+}
+
 pNode findNodeFromEnd(pNode head, int index) {
     pNode pre = head, cur = head;
     for (int i = 0;i < index - 1;i++) {
