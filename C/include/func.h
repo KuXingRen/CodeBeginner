@@ -43,7 +43,7 @@ void reverseContent(void *begin, void *end, size_t size);
 // 清空输入缓冲区
 int clearSTDIN();
 // 构建指定长度的随机链表
-void strucLinkList(pNode *head, TableElem len);
+void structLinkList(pNode *head, TableElem len);
 // 打印链表的每个节点
 void showListNode(pNode L);
 // 指定链表的第几个节并删除
@@ -59,4 +59,6 @@ pNode findNodeFromEnd(pNode head, int index);
 // 获取一个链表的长度，单链表，不考虑环等问题
 int getLinkListLength(pNode head, int *length);
 // 初始化一个循环单链表
-int strucLinkListLoop(pNode *head, int len);
+int structLinkListLoop(pNode *head, int len);
+// 在指定范围内初始化一个链表
+int structLinkListByRange(pNode *head, int len, int range);

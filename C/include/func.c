@@ -1,7 +1,18 @@
 #include "func.h"
 
-int strucLinkListLoop(pNode *head, int len) {
-    strucLinkList(head, len);
+int structLinkListByRange(pNode *head, int len, int range) {
+    TableElem i = 0;
+    pNode p = NULL;
+    for (i = 0;i < len;i++) {
+        p = (pNode)calloc(1, sizeof(LNode));
+        p->data = rand() % range;
+        p->next = *head;
+        *head = p;
+    }
+}
+
+int structLinkListLoop(pNode *head, int len) {
+    structLinkList(head, len);
     if (head) {
         pNode tail = findNodeFromEnd(*head, 1);
         tail->next = *head;
@@ -107,7 +118,7 @@ void showListNode(pNode L) {
     putchar('\n');
 }
 
-void strucLinkList(pNode *head, TableElem len) {
+void structLinkList(pNode *head, TableElem len) {
     TableElem i = 0;
     pNode p = NULL;
     for (i = 0;i < len;i++) {
