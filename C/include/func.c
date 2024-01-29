@@ -67,7 +67,6 @@ void reverseLinkList(pNode *head) {
 void structLinkListBySeqInsert(pNode *head, int len) {
     pNode *cur = head, p = NULL;
     for (int i = 0;i < len;i++) {
-        // 尾插法
         p = (pNode)calloc(1, sizeof(LNode));
         p->data = rand() % 100;
         p->next = NULL;
