@@ -6,7 +6,7 @@ int main() {
     int range = rand() % 15, len = 0;
     pNode head = NULL, cur = NULL, pre = NULL;
     range = 4;
-    strucLinkList(&head, range);
+    structLinkList(&head, range);
     if (head) {
         showListNode(head);
         len = getLinkListLength(head, &len);

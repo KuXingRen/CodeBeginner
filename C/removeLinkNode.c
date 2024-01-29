@@ -12,7 +12,7 @@ int main() {
             printf("\n请输入链表的长度\n");
             continue;
         }
-        strucLinkList(&L, len);
+        structLinkList(&L, len);
         showListNode(L);
         printf("想要删除第几个节点？\n");
         int index = 0;

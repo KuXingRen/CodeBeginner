@@ -6,7 +6,7 @@ int main() {
     pNode head = NULL;
     int len = 4;
     // 双指针法
-    strucLinkList(&head, len);
+    structLinkList(&head, len);
     showListNode(head);
     pNode pre = head, cur = head;
     for (int i = 0;i < len - 1;i++) {
