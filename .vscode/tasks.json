@@ -8,11 +8,11 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
-                "${fileDirname}/include/*.c",
+                "${workspaceFolder}/C/.include/*.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}.exe",
                 "-I",
-                "${fileDirname}/.include"
+                "${workspaceFolder}/C/.include"
             ],
             "options": {
                 "cwd": "${fileDirname}"
