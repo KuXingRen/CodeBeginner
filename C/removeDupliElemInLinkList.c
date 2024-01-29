@@ -28,7 +28,6 @@ void removeDupliElemInLinkList(pNode *head) {
             *cur = tmp;
             cur = &(*cur)->next;
         }
-        // showListNode(newHead);
     }
     head = &newHead;
 }
