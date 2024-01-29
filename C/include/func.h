@@ -58,3 +58,5 @@ void reverseLinkList(pNode *head);
 pNode findNodeFromEnd(pNode head, int index);
 // 获取一个链表的长度，单链表，不考虑环等问题
 int getLinkListLength(pNode head, int *length);
+// 初始化一个循环单链表
+int strucLinkListLoop(pNode *head, int len);

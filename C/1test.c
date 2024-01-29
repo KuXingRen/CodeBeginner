@@ -3,7 +3,8 @@
 int main() {
     pNode L = NULL;
     int i = 0;
-    structLinkListBySeqInsert(&L, 10);
+    strucLinkListLoop(&L, 3);
+    // 循环链表会不断重复打印
     showListNode(L);
     L = findNodeFromEnd(L, 4);
     getLinkListLength(L, &i);

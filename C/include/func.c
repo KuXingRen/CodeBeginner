@@ -1,5 +1,18 @@
 #include "func.h"
 
+int strucLinkListLoop(pNode *head, int len) {
+    strucLinkList(head, len);
+    if (head) {
+        pNode tail = findNodeFromEnd(*head, 1);
+        tail->next = *head;
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
+
 int getLinkListLength(pNode head, int *length) {
     *length = 0;
     while (head) {
