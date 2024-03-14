@@ -1,5 +1,16 @@
 #include "func.h"
 
+void structLinkListByTail(pNode *head, int len) {
+    pNode *cur = head, p = NULL;
+    for (int i = 0;i < len;i++) {
+        p = (pNode)calloc(1, sizeof(LNode));
+        p->data = rand() % 100;
+        p->next = NULL;
+        *cur = p;
+        cur = &p->next;
+    }
+}
+
 int structLinkListByRange(pNode *head, int len, int range) {
     TableElem i = 0;
     pNode p = NULL;

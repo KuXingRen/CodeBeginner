@@ -62,3 +62,5 @@ int getLinkListLength(pNode head, int *length);
 int structLinkListLoop(pNode *head, int len);
 // 在指定范围内初始化一个链表
 int structLinkListByRange(pNode *head, int len, int range);
+// 使用尾插法初始化链表，且避免使用if-else
+void structLinkListByTail(pNode *head, int len);
