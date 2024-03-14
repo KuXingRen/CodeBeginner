@@ -21,7 +21,7 @@ void isCircle(pNode head) {
 
 int main() {
     pNode Loophead = NULL, Normhead = NULL;
-    strucLinkListLoop(&Loophead, 3);
+    structLinkListLoop(&Loophead, 3);
     structLinkList(&Normhead, 3);
     isCircle(Loophead);
     isCircle(Normhead);
