@@ -6,9 +6,9 @@ typedef struct binTree {
     struct binTree *right;
 }binTree, *pBintree;
 // 队列的节点
-typedef struct {
+typedef struct queNode {
     pBintree cur;
-    pBintree next;
+    struct queNode *next;
 }TNode, *ptNode;
 // 队列，存储树的节点
 typedef struct teeQue {
