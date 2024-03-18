@@ -23,10 +23,10 @@ typedef struct Node {
     struct Node *next;
 } LNode, *pNode;
 // 链式队列
-typedef struct {
+typedef struct Que {
     pNode front;
     pNode rear;
-}LinkQueue, *pLinkQue;
+}LQue, *pQue;
 
 
 // 构造一个顺序表，指定长度与整数的范围
