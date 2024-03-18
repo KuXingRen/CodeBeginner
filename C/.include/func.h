@@ -22,6 +22,12 @@ typedef struct Node {
     TableElem data;
     struct Node *next;
 } LNode, *pNode;
+// 链式队列
+typedef struct {
+    pNode front;
+    pNode rear;
+}LinkQueue, *pLinkQue;
+
 
 // 构造一个顺序表，指定长度与整数的范围
 // 取值范围(0，range)
