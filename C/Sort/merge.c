@@ -42,6 +42,7 @@ void merge(int *a, int l, int r) {
 }
 
 int main() {
+    srand(time(NULL));
     int arr[10];
     int i = 0, j = 0;
     for (i = 0;i < 10;i++) {
