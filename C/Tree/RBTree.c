@@ -1,15 +1,17 @@
 // 红黑树的实现
 #include"func.h"
 // 宏函数的实现
-#define rb_parent(r) ((r)->parent);
+#define rb_parent(r)   ((r)->parent)
 #define rb_color(r) ((r)->color)
-#define rb_is_red(r) ((r)->color == RED)
-#define rb_is_black(r) ((r)->color == BLACK)
-#define rb_set_red(r) do{(r)->color = RED;} while(0)
-#define rb_set_blak(r) do{(r)->color = BLACK;} while(0)
-#define rb_set_parent(r,p) do{(r)->parent = (p);} while(0)
-#define rb_set_color(r,c) do{(r)->color = (c);} while(0)
+#define rb_is_red(r)   ((r)->color==RED)
+#define rb_is_black(r)  ((r)->color==BLACK)
+#define rb_set_black(r)  do { (r)->color = BLACK; } while (0)
+#define rb_set_red(r)  do { (r)->color = RED; } while (0)
+#define rb_set_parent(r,p)  do { (r)->parent = (p); } while (0)
+#define rb_set_color(r,c)  do { (r)->color = (c); } while (0)
 
+#define RED        0    // 红色节点
+#define BLACK    1    // 黑色节点
 
 // 红黑树节点定义
 typedef struct RBNode {
@@ -60,8 +62,15 @@ void rbtree_left_rotate(RBRoot *root, Node *x);
 // 右旋操作
 void rbtree_right_rotate(RBRoot *root, Node *x);
 // 插入操作破坏红黑树的性质则调用此函数
+void rbtree_insert_fixup(RBRoot *root, Node *node);
+// 将节点插入到红黑树中
+void rbtree_insert(RBRoot *root, Node *node);
+// 创建一个红黑树节点
+Node *create_rbtree_node(int key, Node *parent, Node *left, Node *right);
+// 新建一个节点并插入到红黑树中,成功返回0，失败返回-1
+int insert_rbtree(RBRoot *root, int key);
 // 删除操作若破坏红黑树的性质则调用此函数
-
+void rbtree_delete_fixup(RBRoot *root, Node *node, Node *parent);
 // 主函数
 int main() {
     return 0;
@@ -259,5 +268,142 @@ void rbtree_left_rotate(RBRoot *root, Node *x) {
     x->parent = y;
 }
 void rbtree_right_rotate(RBRoot *root, Node *x) {
+    Node *y = x->left;
+    x->left = y->right;
+    if (y->right != NULL) {
+        y->right->parent = x;
+    }
+    y->parent = x->parent;
+    if (y->parent == NULL) {
+        root->node = y;
+    }
+    else {
+        if (x->parent->left == x) {
+            x->parent->left = y;
+        }
+        else {
+            x->parent->right = y;
+        }
+    }
+    x->parent = y;
+    y->right = x;
+}
+void rbtree_insert_fixup(RBRoot *root, Node *node) {
+    Node *parent = NULL, *gparent = NULL;
+    // 若父节点存在且为红色
+    while ((parent = rb_parent(node)) && rb_is_red(parent)) {
+        gparent = rb_parent(parent);
+        // 若父节点是一个左孩子
+        if (parent == gparent->left) {
+            //1.如果叔叔节点是红色
+            Node *uncle = gparent->right;
+            if (uncle != NULL && rb_is_red(uncle)) {
+                rb_set_black(parent);
+                rb_set_black(uncle);
+                rb_set_red(gparent);
+                node = parent;
+                continue;
+            }
+            // 叔叔节点是黑色或者不存在,当前节点是一个右孩子
+            // 先左旋，后右旋
+            if (parent->right == node) {
+                Node *tmp;
+                rbtree_left_rotate(root, parent);
+                tmp = parent;
+                parent = node;
+                node = tmp;
+            }
+            // 叔叔是黑色，且当前节点是一个左孩子
+            rb_set_black(parent);
+            rb_set_red(gparent);
+            rbtree_right_rotate(root, gparent);
+        }
+        else {
+            // 1.叔叔节点是红色
+            Node *uncle = gparent->left;
+            if (uncle != NULL && rb_is_red(uncle)) {
+                rb_set_black(parent);
+                rb_set_black(uncle);
+                rb_set_red(gparent);
+                node = gparent;
+                continue;
+            }
+            // 2. 叔叔为黑色且当前节点为左孩子（叔叔不存在也视作黑色）
+            // 右旋一次变为情况3
+            if (parent->left == node) {
+                Node *tmp;
+                rbtree_right_rotate(root, parent);
+                tmp = parent;
+                parent = node;
+                node = tmp;
+            }
+            // 3. 叔叔为黑色（不存在）且当前节点是一个右孩子
+            rb_set_black(parent);
+            rb_set_red(gparent);
+            rbtree_left_rotate(root, gparent);
+        }
+    }
+    // 父节点不存在，说明插入的节点为根节点
+    // 父节点为黑色，则插入红节点不破坏红黑树的性质
+    // 无论哪种情况，都可以将根节点设为黑色
+    rb_set_black(root->node);
+}
+void rbtree_insert(RBRoot *root, Node *node) {
+    Node *y = NULL;
+    Node *x = root->node;
+    // 将红黑树当作一颗二叉查找树，将节点添加到二叉查找树中
+    while (x != NULL) {
+        y = x;
+        if (node->key < x->key) {
+            x = x->left;
+        }
+        else {
+            x = x->right;
+        }
+    }
+    rb_parent(node) = y;
+    // 修改父节点的指针
+    if (y != NULL) {
+        if (node->key < y->key) {
+            y->left = node;
+        }
+        else {
+            y->right = node;
+        }
+    }
+    else {
+        root->node = node;
+    }
+
+    // 将新节点的颜色设置为红色
+    node->color = RED;
+    // 重新平衡红黑树
+    rbtree_insert_fixup(root, node);
+}
+Node *create_rbtree_node(int key, Node *parent, Node *left, Node *right) {
+    RBTree node = (RBTree)calloc(1, sizeof(Node));
+    if (node == NULL) {
+        return NULL;
+    }
+    node->key = key;
+    node->right = right;
+    node->parent = parent;
+    node->left = left;
+    return node;
+}
+int insert_rbtree(RBRoot *root, int key) {
+    Node *node;
+    // 不允许插入相同键值的节点
+    if (search(root->node, key) != NULL) {
+        return -1;
+    }
+    // 新节点创建失败，则返回
+    if ((node = create_rbtree_node(key, NULL, NULL, NULL)) == NULL) {
+        return -1;
+    }
+    rbtree_insert(root, node);
+}
+
+void rbtree_delete_fixup(RBRoot *root, Node *node, Node *parent) {
 
 }
