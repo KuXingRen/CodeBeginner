@@ -71,6 +71,8 @@ Node *create_rbtree_node(int key, Node *parent, Node *left, Node *right);
 int insert_rbtree(RBRoot *root, int key);
 // 删除操作若破坏红黑树的性质则调用此函数
 void rbtree_delete_fixup(RBRoot *root, Node *node, Node *parent);
+// 删除一个节点
+void rbtree_delete(RBRoot *root, Node *node);
 // 主函数
 int main() {
     return 0;
@@ -405,5 +407,175 @@ int insert_rbtree(RBRoot *root, int key) {
 }
 
 void rbtree_delete_fixup(RBRoot *root, Node *node, Node *parent) {
+    Node *other; // 兄弟节点指针
+    // node为叶子或者黑色节点，且当为黑色时不为根节点，会破坏红黑树的结构性质
+    while ((!node || rb_is_black(node)) && node != root->node) {
+        //如果node是一个左孩子
+        if (parent->left == node) {
+            // 初始化兄弟节点指针
+            other = parent->right;
+            // 如果兄弟节点为红色
+            if (rb_is_red(other)) {
+                rb_set_black(other);
+                rb_set_red(parent);
+                rbtree_left_rotate(root, parent);
+                other = parent->right;
+            }
+            // 经过上一步处理，新的other一定是一个黑色节点，因此可以在同一次循环中处理
+            if ((!other->left || rb_is_black(other->left)) && (!other->right || rb_is_black(other->right))) {
+                rb_set_red(other);
+                node = parent;
+                parent = node->parent;
+            }
+            // 兄弟的左右孩子不全为黑色
+            else {
+                // 如果兄弟的右孩子为黑色
+                if (!other->right || rb_is_black(other->right)) {
+                    rb_set_black(other->left);
+                    rb_set_red(other);
+                    // 对兄弟进行右旋
+                    rbtree_right_rotate(root, other);
+                    other = parent->right;
+                }
+                //左孩子颜色任意，右孩子为红色的情况
+                rb_set_color(other, rb_color(parent));
+                rb_set_black(parent);
+                rb_set_black(other->right);
+                rbtree_left_rotate(root, parent);
+                node = root->node;
+                break;
+            }
+        }
+        // 如果node是一个右孩子
+        else {
+            // 初始化兄弟节点指针
+            other = parent->left;
+            // 如果兄弟节点为红色
+            if (rb_is_red(other)) {
+                rb_set_black(other);
+                rb_set_red(parent);
+                rbtree_left_rotate(root, parent);
+                other = parent->left;
+            }
+            // 经过上一步处理，新的other一定是一个黑色节点，因此可以在同一次循环中处理
+            if ((!other->left || rb_is_black(other->left)) && (!other->right || rb_is_black(other->right))) {
+                rb_set_red(other);
+                node = parent;
+                parent = node->parent;
+            }
+            // 兄弟的左右孩子不全为黑色
+            else {
+                // 如果兄弟的右孩子为黑色
+                if (!other->left || rb_is_black(other->left)) {
+                    rb_set_black(other->right);
+                    rb_set_red(other);
+                    // 对兄弟进行右旋
+                    rbtree_right_rotate(root, other);
+                    other = parent->left;
+                }
+                //左孩子颜色任意，右孩子为红色的情况
+                rb_set_color(other, rb_color(parent));
+                rb_set_black(parent);
+                rb_set_black(other->left);
+                rbtree_left_rotate(root, parent);
+                node = root->node;
+                break;
+            }
+        }
+        // 将节点设置为黑色
+        if (node) {
+            rb_set_black(node);
+        }
+    }
+}
 
+void rbtree_delete(RBRoot *root, Node *node) {
+    Node *parent, *child;
+    int color;
+
+    // node两个孩子非空
+    if (node->left != NULL && node->right != NULL) {
+        // 寻找node的后继节点作为替代
+        // 两个孩子非空则一定会有后继
+        Node *replace = node->right;
+
+        // 后继节点为右子树的最左节点
+        while (replace->left != NULL) {
+            replace = replace->left;
+        }
+
+        // 如果node节点不为根结点
+        if (rb_parent(node)) {
+            if (rb_parent(node)->left == node) {
+                rb_parent(node)->left = replace;
+            }
+            else {
+                rb_parent(node)->right = replace;
+            }
+        }
+        else {
+            root->node = replace;
+        }
+        // 当前replace的度一定小于2，且无左孩子
+        child = replace->right;
+        parent = rb_parent(replace);
+        color = rb_color(replace);
+
+        // 如果node是replace的父节点
+        if (parent == node) {
+            parent = replace;
+        }
+        else {
+            if (child) {
+                rb_set_parent(child, parent);
+            }
+            parent->left = child;
+            replace->right = node->right;
+            rb_set_parent(node->right, replace);
+        }
+        // 将replace移动到node的位置
+        replace->parent = node->parent;
+        replace->color = node->color;
+        replace->left = node->left;
+        node->left->parent = replace;
+        if (color == BLACK) {
+            rbtree_delete_fixup(root, child, parent);
+        }
+        free(node);
+        node = NULL;
+        return;
+    }
+    // node 有一边为空
+    if (node->left != NULL) {
+        child = node->left;
+    }
+    else {
+        child = node->right;
+    }
+    parent = node->parent;
+    color = node->color;
+    if (child) {
+        child->parent = parent;
+    }
+
+    // node不是根节点
+    if (parent) {
+        // 如果node是一个左孩子
+        if (node == parent->left) {
+            parent->left = child;
+        }
+        else {
+            parent->right = child;
+        }
+    }
+    else {
+        root->node = child;
+    }
+
+    if (color == BLACK) {
+        rbtree_delete_fixup(root, child, parent);
+    }
+    free(node);
+    node = NULL;
+    return;
 }
