@@ -79,6 +79,10 @@ void delete_rbtree(RBRoot *root, int key);
 void rbtree_destroy(RBTree tree);
 // 销毁以node为根的红黑树
 void destroy_rbtree(RBRoot *root);
+// 递归打印红黑树的实现
+void rbtree_print(RBTree tree, int key, int direction);
+// 打印红黑树
+void print_rbtree(RBRoot *root);
 // 主函数
 int main() {
     return 0;
@@ -609,4 +613,20 @@ void destroy_rbtree(RBRoot *root) {
         rbtree_destroy(root->node);
 
     free(root);
+}
+void rbtree_print(RBTree tree, int key, int direction) {
+    if (tree != NULL) {
+        if (direction == 0)    // tree是根节点
+            printf("%2d(B) is root\n", tree->key);
+        else                // tree是分支节点
+            printf("%2d(%s) is %2d's %6s child\n", tree->key, rb_is_red(tree) ? "R" : "B", key, direction == 1 ? "right" : "left");
+
+        rbtree_print(tree->left, tree->key, -1);
+        rbtree_print(tree->right, tree->key, 1);
+    }
+}
+
+void print_rbtree(RBRoot *root) {
+    if (root != NULL && root->node != NULL)
+        rbtree_print(root->node, root->node->key, 0);
 }
