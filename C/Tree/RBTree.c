@@ -75,6 +75,10 @@ void rbtree_delete_fixup(RBRoot *root, Node *node, Node *parent);
 void rbtree_delete(RBRoot *root, Node *node);
 // 删除键值为key的节点
 void delete_rbtree(RBRoot *root, int key);
+// 销毁红黑树
+void rbtree_destroy(RBTree tree);
+// 销毁以node为根的红黑树
+void destroy_rbtree(RBRoot *root);
 // 主函数
 int main() {
     return 0;
@@ -586,4 +590,23 @@ void delete_rbtree(RBRoot *root, int key) {
     if ((z = search(root->node, key)) != NULL) {
         rbtree_delete(root, z);
     }
+}
+void rbtree_destroy(RBTree tree) {
+    // 递归释放节点空间
+    if (tree == NULL)
+        return;
+
+    if (tree->left != NULL)
+        rbtree_destroy(tree->left);
+    if (tree->right != NULL)
+        rbtree_destroy(tree->right);
+
+    free(tree);
+}
+
+void destroy_rbtree(RBRoot *root) {
+    if (root != NULL)
+        rbtree_destroy(root->node);
+
+    free(root);
 }
