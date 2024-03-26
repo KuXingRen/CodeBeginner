@@ -73,6 +73,8 @@ int insert_rbtree(RBRoot *root, int key);
 void rbtree_delete_fixup(RBRoot *root, Node *node, Node *parent);
 // 删除一个节点
 void rbtree_delete(RBRoot *root, Node *node);
+// 删除键值为key的节点
+void delete_rbtree(RBRoot *root, int key);
 // 主函数
 int main() {
     return 0;
@@ -578,4 +580,10 @@ void rbtree_delete(RBRoot *root, Node *node) {
     free(node);
     node = NULL;
     return;
+}
+void delete_rbtree(RBRoot *root, int key) {
+    Node *z, *node;
+    if ((z = search(root->node, key)) != NULL) {
+        rbtree_delete(root, z);
+    }
 }
