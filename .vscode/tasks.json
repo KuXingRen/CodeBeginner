@@ -12,7 +12,8 @@
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}.exe",
                 "-I",
-                "${workspaceFolder}/C/.include"
+                "${workspaceFolder}/C/.include",
+                "/usr/include"
             ],
             "options": {
                 "cwd": "${fileDirname}"
