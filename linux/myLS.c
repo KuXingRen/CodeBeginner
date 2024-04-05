@@ -2,6 +2,37 @@
 // 需要使用stat结构体，获取inode在内的文件信息
 #include"funclinux.h"
 
+char *mode_to_string(mode_t mode, char str[]) {
+    memset(str, 0, 11 * sizeof(char));
+    // 文件类型
+    if (S_ISREG(mode)) str[0] = '-';
+    else if (S_ISDIR(mode)) str[0] = 'd';
+    else if (S_ISCHR(mode)) str[0] = 'c';
+    else if (S_ISBLK(mode)) str[0] = 'b';
+    else if (S_ISFIFO(mode)) str[0] = 'p';
+    else if (S_ISLNK(mode)) str[0] = 'l';
+    else if (S_ISSOCK(mode)) str[0] = 's';
+    else str[0] = '?';
+
+    // 用户权限
+    str[1] = (mode & S_IRUSR) ? 'r' : '-';
+    str[2] = (mode & S_IWUSR) ? 'w' : '-';
+    str[3] = (mode & S_IXUSR) ? 'x' : '-';
+
+    // 组权限
+    str[4] = (mode & S_IRGRP) ? 'r' : '-';
+    str[5] = (mode & S_IWGRP) ? 'w' : '-';
+    str[6] = (mode & S_IXGRP) ? 'x' : '-';
+
+    // 其他用户权限
+    str[7] = (mode & S_IROTH) ? 'r' : '-';
+    str[8] = (mode & S_IWOTH) ? 'w' : '-';
+    str[9] = (mode & S_IXOTH) ? 'x' : '-';
+
+    str[10] = '\0'; // 字符串结束符
+    return str;
+}
+
 char *timeTansform(time_t t, char *buffer) {
     struct tm *info;
     info = localtime(&t);
@@ -13,6 +44,7 @@ int myls(const char *path) {
     DIR *dir;
     dir = opendir(path);
     char buffer[80];
+    char str[11];
     if (NULL == dir) {
         perror("opendir");
         return -1;
@@ -25,8 +57,8 @@ int myls(const char *path) {
         }
         stat(p->d_name, &buf);
         memset(buffer, 0, sizeof(buffer));
-        printf("%o %2ld %s %s %s %s\n", \
-            buf.st_mode, buf.st_nlink,
+        printf("%s %2ld %s %s %s %s\n", \
+            mode_to_string(buf.st_mode, str), buf.st_nlink,
             getpwuid(buf.st_uid)->pw_name, \
             getgrgid(buf.st_gid)->gr_name, \
             timeTansform(buf.st_mtime, buffer), \
