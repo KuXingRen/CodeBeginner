@@ -2,6 +2,11 @@
 // 需要使用stat结构体，获取inode在内的文件信息
 #include"funclinux.h"
 
+
+// 权限码转换为字符串
+// 权限码每一位都有其意义，拿到权限码之后，将权限码与 \
+不同的权限掩码进行相与，根据结果的真假来判断需要在字符\
+串中填充的字符
 char *mode_to_string(mode_t mode, char str[]) {
     memset(str, 0, 11 * sizeof(char));
     // 文件类型
