@@ -17,5 +17,6 @@ int main() {
     文件对象的成员变量，如文件指针，第二次读取会从\
     上次读取结束的位置开始
     printf("%s\n", buf);
+    close(fd1);
     return 0;
 }
