@@ -7,6 +7,9 @@ int main(int argc, char *argv[]) {
     int fd = open(argv[1], O_RDONLY);
     ERROR_CHECK(fd, -1, "open");
     printf("I am reader\n");
+    char buf[128] = { 0 };
+    int ret = read(fd, buf, sizeof(buf));//管道没有数据，就会阻塞
+    printf("ret=%d,reader=%s\n", ret, buf);
     close(fd);
     return 0;
 }
