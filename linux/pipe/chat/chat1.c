@@ -2,7 +2,7 @@
 #include"func.h"
 #include"funclinux.h"
 
-int main(int argc, char *argv) {
+int main(int argc, char *argv[]) {
     ARGS_CHECK(argc, 3);
     int fdr = open(argv[1], O_RDONLY);
     ERROR_CHECK(fdr, -1, "open1");
