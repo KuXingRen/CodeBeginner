@@ -7,5 +7,6 @@ int main(int argc, char *argv[]) {
     int fd = open(argv[1], O_WRONLY);
     ERROR_CHECK(fd, -1, "open");
     printf("I am writer\n");
+    close(fd);
     return 0;
 }
