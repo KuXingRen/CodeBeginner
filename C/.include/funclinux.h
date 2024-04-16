@@ -1,6 +1,8 @@
 #include<sys/stat.h>
 #include<sys/types.h>
 #include<sys/mman.h>
+#include<sys/time.h>
+#include<sys/select.h>
 #include<unistd.h>
 #include<stdio.h>
 #include<stdlib.h>
