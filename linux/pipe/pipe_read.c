@@ -8,7 +8,8 @@ int main(int argc, char *argv[]) {
     ERROR_CHECK(fd, -1, "open");
     printf("I am reader\n");
     char buf[128] = { 0 };
-    int ret = read(fd, buf, sizeof(buf));//管道没有数据，就会阻塞
+    //管道没有数据，就会阻塞
+    int ret = read(fd, buf, sizeof(buf));
     printf("ret=%d,reader=%s\n", ret, buf);
     close(fd);
     return 0;
