@@ -1,4 +1,4 @@
-// 使用wait对子进程做出正确的处理
+// 使用wait检查子进程的执行状态
 #include"func.h"
 #include"funclinux.h"
 int main() {
