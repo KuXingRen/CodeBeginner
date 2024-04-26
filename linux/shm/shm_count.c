@@ -1,3 +1,4 @@
+// 共享内存的并发操作，不使用同步机制，会导致结果不等于2*NUM
 #include"func.h"
 #include"funclinux.h"
 
