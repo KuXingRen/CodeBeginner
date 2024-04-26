@@ -15,5 +15,6 @@
 #include<sys/wait.h>
 #include<sys/shm.h>
 #include<sys/ipc.h>
+#include <semaphore.h>
 #define ARGS_CHECK(argc,num) {if(argc!=num){printf("error gras\n");return -1;}}
 #define ERROR_CHECK(ret,retval,func_name){if(ret==retval){perror(func_name);return -1;}}
