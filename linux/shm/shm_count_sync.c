@@ -1,4 +1,4 @@
-// 共享内存的并发操作，使用同步机制
+// 共享内存的并发操作，使用同步机制，确保最终结果为2*NUMS
 #include"func.h"
 #include"funclinux.h"
 
